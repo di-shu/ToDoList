@@ -1,59 +1,45 @@
-let date=document.querySelector('.toDoList-header_date'),
-    toDoList=document.querySelector('.toDoList-main_list'),
-    input=document.querySelector('.toDoList-footer_input'),
-    buttonAdd=document.querySelector('#toDoList-footer_button'),
-    buttonSettings=document.querySelectorAll('.task-buttons'),
-    buttonEdit=document.querySelectorAll('.edit'),
-    hideSettings=document.querySelectorAll('.hide'),
-    buttonDelete=document.querySelectorAll('.delete'),
-    listItem=document.querySelectorAll('.main_list-item'),
-    inputEdit=document.querySelectorAll('.edit-input'),
-    tasks=document.querySelectorAll('.task'),
-    inputEditWrapper=document.querySelectorAll('.edit-input-wrapper'),
-    buttonConfirm=document.querySelectorAll('.confirm'),
-    taskCheckBoxes=document.querySelectorAll('.task-checkbox'),
-    toDoListObj={},
-    toDoListSaved={};
+let 
+    buttonSettings = document.querySelectorAll('.task-buttons'),
+    buttonEdit = document.querySelectorAll('.edit'),
+    hideSettings = document.querySelectorAll('.hide'),
+    buttonDelete = document.querySelectorAll('.delete'),
+    listItem = document.querySelectorAll('.main_list-item'),
+    inputEdit = document.querySelectorAll('.edit-input'),
+    tasks = document.querySelectorAll('.task'),
+    inputEditWrapper = document.querySelectorAll('.edit-input-wrapper'),
+    buttonConfirm = document.querySelectorAll('.confirm'),
+    taskCheckBoxes = document.querySelectorAll('.task-checkbox'),
+    toDoListObj = {},
+    toDoListSaved = {};
 
+const date = document.querySelector('.toDoList-header_date'),
+      input = document.querySelector('.toDoList-footer_input'),
+      buttonAdd = document.querySelector('#toDoList-footer_button'),
+      toDoList = document.querySelector('.toDoList-main_list');
 
 function redefine()
 {
-    toDoList=document.querySelector('.toDoList-main_list'),
-        buttonSettings=document.querySelectorAll('.task-buttons'),
-        buttonEdit=document.querySelectorAll('.edit'),
-        hideSettings=document.querySelectorAll('.hide'),
-        buttonDelete=document.querySelectorAll('.delete'),
-        listItem=document.querySelectorAll('.main_list-item'),
-        inputEdit=document.querySelectorAll('.edit-input'),
-        tasks=document.querySelectorAll('.task'),
-        inputEditWrapper=document.querySelectorAll('.edit-input-wrapper'),
-        buttonConfirm=document.querySelectorAll('.confirm'),
-        taskCheckBoxes=document.querySelectorAll('.task-checkbox');
-        toDoListObj.html=parseToDoListHtmltoString();
-        toDoListObj.checkBox=getArrCheckbox(taskCheckBoxes);
+        buttonSettings = document.querySelectorAll('.task-buttons'),
+        buttonEdit = document.querySelectorAll('.edit'),
+        hideSettings = document.querySelectorAll('.hide'),
+        buttonDelete = document.querySelectorAll('.delete'),
+        listItem = document.querySelectorAll('.main_list-item'),
+        inputEdit = document.querySelectorAll('.edit-input'),
+        tasks = document.querySelectorAll('.task'),
+        inputEditWrapper = document.querySelectorAll('.edit-input-wrapper'),
+        buttonConfirm = document.querySelectorAll('.confirm'),
+        taskCheckBoxes = document.querySelectorAll('.task-checkbox');
+        toDoListObj.html = parseToDoListHtmltoString();
+        toDoListObj.checkBox = getArrCheckbox(taskCheckBoxes);
 }
+
 
 function setCheckBox()
 {
-    let count=0;
-    let savedObj;
-    if(localStorage.getItem('myToDo'))
-    {
-         savedObj=JSON.parse(localStorage.getItem('myToDo'));
-    }
-    
-    let tempObj;
-    if(savedObj.checkBox)
-    {
-        tempObj=JSON.parse(savedObj.checkBox);
-    }
 
-    let newArr=[];
-    for(key in tempObj)
-    {
-        newArr[count]=tempObj[key];
-        count++;
-    }
+    const savedObj = localStorage.getItem('myToDo') ? JSON.parse(localStorage.getItem('myToDo')) : {};
+    const tempObj = savedObj.checkBox ? JSON.parse(savedObj.checkBox) : {};
+    const newArr = Object.values(tempObj)
 
     for(let i=0;i<newArr.length;i++)
     {
@@ -73,14 +59,12 @@ function setCheckBox()
 
 function saveToDoList()
 {
-    let savedObj=JSON.parse(localStorage.getItem('myToDo'));
-    return savedObj.html;
+    return JSON.parse(localStorage.getItem('myToDo')).html;
 }
 
-function SetToLocaleStorage(obj)
+function setToLocaleStorage(obj)
 {
-    let objSerialized=JSON.stringify(toDoListObj);
-    localStorage.setItem('myToDo',objSerialized);
+    localStorage.setItem('myToDo',JSON.stringify(toDoListObj));
 }
 
 function parseToDoListHtmltoString()
@@ -90,8 +74,8 @@ function parseToDoListHtmltoString()
 
 function getArrCheckbox(elem)
 {
-    let newObj={};
-    let name='check';
+    let newObj = {};
+    let name = 'check';
     for(let i=0;i<elem.length;i++)
     {
         newObj[name+i]=elem[i].checked?'true':'false';
@@ -99,39 +83,40 @@ function getArrCheckbox(elem)
     return JSON.stringify(newObj);
 }
 
-function SetEditValue()
+function setEditValue()
 {
     for(let i=0;i<tasks.length;i++)
     {
-        inputEdit[i].value=tasks[i].innerHTML;
+        inputEdit[i].value = tasks[i].innerHTML;
     }
 }
-SetEditValue();
+setEditValue();
 
-function SetDate()
+function setDate()
 {
-    let currentDate=new Date();
+    let currentDate = new Date();
 
-    let options={
+    let options = {
         month: 'long',
         day:'numeric',
         weekday: 'long'
         
     }
 
-    date.innerHTML=currentDate.toLocaleString('En',options);;
+    date.innerHTML = currentDate.toLocaleString('En',options);;
 }
-SetDate();
+setDate();
 
-function LoadToDo(html)
+function loadToDo(html)
 {
-    toDoList.innerHTML='';
+    toDoList.innerHTML = '';
     toDoList.insertAdjacentHTML('beforeend',html);
     redefine();
 }
-function AddToDo(text)
+
+function addToDo(text)
 {
-    let htmlElem=`<li class="main_list-item">
+    const htmlElem = `<li class="main_list-item">
                     
                         <label class="checkbox-wrapper">
                             <input type="checkbox" class="task-checkbox">
@@ -160,10 +145,10 @@ function AddToDo(text)
 buttonAdd.addEventListener('click',()=>{
    if(input.value)
    {
-        AddToDo(input.value);
-        input.value='';
+        addToDo(input.value);
+        input.value = '';
         redefine();
-        SetToLocaleStorage(toDoListObj);
+        setToLocaleStorage(toDoListObj);
    }
 });
 
@@ -174,83 +159,54 @@ toDoList.addEventListener('click',function(e){
         {
             buttonSettings[i].classList.add('task-buttons_check');
 
-            hideSettings[i].style.display='block';
+            hideSettings[i].style.display = 'block';
 
-            buttonEdit[i].style.display='block';
+            buttonEdit[i].style.display = 'block';
 
-            buttonDelete[i].style.display='block';
-            buttonDelete[i].style.position='static';
+            buttonDelete[i].style.display = 'block';
+            buttonDelete[i].style.position = 'static';
         }
         else if(e.target==hideSettings[i])
         {
             buttonSettings[i].classList.remove('task-buttons_check');
-            hideSettings[i].style.display='none';
+            hideSettings[i].style.display = 'none';
 
-            buttonEdit[i].style.display='none';
+            buttonEdit[i].style.display = 'none';
 
-            buttonDelete[i].style.display='none';
-            buttonDelete[i].style.position='absolute';
+            buttonDelete[i].style.display = 'none';
+            buttonDelete[i].style.position = 'absolute';
         }
         else if(e.target==buttonDelete[i])
         {
             listItem[i].remove();
             toDoListObj.html=parseToDoListHtmltoString();
+            taskCheckBoxes = document.querySelectorAll('.task-checkbox');
+            getArrCheckbox(taskCheckBoxes);
         }
         else if(e.target==buttonEdit[i])
         {
-            inputEditWrapper[i].style.display='flex';
-            inputEdit[i].value=tasks[i].innerHTML;
+            inputEditWrapper[i].style.display = 'flex';
+            inputEdit[i].value = tasks[i].innerHTML;
         }
         else if(e.target==buttonConfirm[i])
         {
             if(inputEdit[i].value)
             {
-                tasks[i].innerHTML=inputEdit[i].value;
-                inputEditWrapper[i].style.display='none';
-                toDoListObj.html=parseToDoListHtmltoString();
+                tasks[i].innerHTML = inputEdit[i].value;
+                inputEditWrapper[i].style.display = 'none';
+                toDoListObj.html = parseToDoListHtmltoString();
             }
             
         }
 
-        toDoListObj.checkBox=getArrCheckbox(taskCheckBoxes);
-        toDoListObj.html=parseToDoListHtmltoString();
+        toDoListObj.checkBox = getArrCheckbox(taskCheckBoxes);
+        toDoListObj.html = parseToDoListHtmltoString();
     }
-    SetToLocaleStorage(toDoListObj);
+    setToLocaleStorage(toDoListObj);
 });
 
-LoadToDo(saveToDoList());
+loadToDo(saveToDoList());
 setCheckBox();
 
-
-
-// buttonSettings.addEventListener('click',function(e){
-    
-//     if(e.target==hideSettings)
-//     {
-//         this.classList.remove('task-buttons_check');
-//         hideSettings.style.display='none';
-//         for(let i=0;i<buttonsSetting.length;i++)
-//         {
-//             buttonsSetting[i].style.display='none';
-//             buttonsSetting[i].style.position='absolute';
-//         }
-//     }
-//     else if(e.target==buttonDelete)
-//     {
-        
-//     }
-//     else
-//     {
-//         this.classList.add('task-buttons_check');
-//         hideSettings.style.display='block';
-//         for(let i=0;i<buttonsSetting.length;i++)
-//         {
-//             buttonsSetting[i].style.display='block';
-//             buttonsSetting[i].style.position='static';
-//         }
-//     }
-        
- 
-// });
 
 

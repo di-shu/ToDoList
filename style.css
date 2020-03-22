@@ -1,23 +1,24 @@
 @import "/style/fonts";
 
-body
-{
+body{
     margin: 0;
     padding: 20px;
     box-sizing: border-box;
     background-color:rgb(194, 215, 243);
     font-family: 'Baloo Chettan 2', cursive;
 }
+
 p{
     margin: 0;
 }
+
 .main{
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.toDoList-wrapper
-{
+
+.toDoList-wrapper{
     min-height: 600px;
     width: 450px;
     border-top-left-radius: 20px;
@@ -26,8 +27,8 @@ p{
     flex-direction: column;
     overflow: hidden;
 }
-.toDoList-header
-{
+
+.toDoList-header{
     width: 100%;
     height: 200px;
     background-image: url('./images/skaly_gory_nebo_oblaka_115900_1280x720.jpg');
@@ -39,26 +40,26 @@ p{
     padding: 15px;
     color: #fff;
 }
-.toDoList-header_date
-{
+
+.toDoList-header_date{
     font-size: 24px;
     align-self: flex-end;
 }
-.toDoList-main
-{
+
+.toDoList-main{
     background-color: #fff;
     min-height: 340px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     margin-bottom: 2px;
     padding: 10px 20px;
 }
-.toDoList-main_list
-{
+
+.toDoList-main_list{
     list-style: none;
     padding: 0;
 }
-.main_list-item
-{
+
+.main_list-item{
     display: flex;
     align-items: center;
     min-height: 50px;
@@ -68,20 +69,20 @@ p{
     margin-bottom: 5px;
     position: relative;
 }
-.main_list-item:last-child
-{
+
+.main_list-item:last-child{
     margin-bottom: 0;
 }
-.task-checkbox
-{
+
+.task-checkbox{
     position: relative;
 }
-.task-checkbox:checked+ .fake-checkbox .checkmark
-{
+
+.task-checkbox:checked+ .fake-checkbox .checkmark{
     display: block;
 }
-.fake-checkbox
-{
+
+.fake-checkbox{
     position: absolute;
     background-image: url(./images/icons8-unchecked-48.png);
     background-position: center;
@@ -95,8 +96,8 @@ p{
     left: 9px;
     cursor: pointer;
 }
-.checkmark
-{
+
+.checkmark{
     background-image: url(./images/icons8-checkmark-48.png);
     background-position:3px -3px ;
     background-repeat: no-repeat;
@@ -105,8 +106,8 @@ p{
     width: 24px;
     display: none;
 }
-.task-button
-{
+
+.task-button{
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
@@ -116,23 +117,23 @@ p{
     display: none;
     
 }
-.task
-{
+
+.task{
     margin: 0 10px;
     max-width: 300px;
     overflow-wrap: break-word;
 }
-.delete
-{
+
+.delete{
     background-image: url(./images/17231998941537348227-64.png);
     position: absolute;
 }
-.edit
-{
+
+.edit{
     background-image: url(./images/icons8-edit-64.png);
 }
-.task-buttons
-{
+
+.task-buttons{
     display: flex;
     justify-content: space-between;
     position: relative;
@@ -145,8 +146,8 @@ p{
     cursor: pointer;
     margin-left: auto;
 }
-.task-buttons_check
-{
+
+.task-buttons_check{
     background-image: unset;
     width: 60px;
     background-color: #4caf50;;
@@ -154,8 +155,8 @@ p{
     padding: 5px;
     transition-duration: 0.2s;
 }
-.hide
-{
+
+.hide{
     background-image: url(./images/icons8-delete-64.png);
     height: 12px;
     width: 12px;
@@ -168,8 +169,8 @@ p{
     display: none;
     
 }
-.edit-input-wrapper
-{
+
+.edit-input-wrapper{
     width: 100%;
     height: 50px;
     display: none;
@@ -179,8 +180,8 @@ p{
     background-color: #fff;
     height: 100%;
 }
-.edit-input
-{
+
+.edit-input{
     width: 82%;
     height: 36px;
     border: none;
@@ -191,13 +192,13 @@ p{
     padding-left: 10px;
     padding-right: 10px;
 }
-.edit-input::placeholder
-{
+
+.edit-input::placeholder{
     color: #4caf50;
     font-size: 24px;
 }
-.confirm
-{
+
+.confirm{
     background-image: url(./images/accept.png);
     height: 24px;
     width: 24px;
@@ -207,15 +208,15 @@ p{
     cursor: pointer;
     margin-right: 10px;
 }
-.toDoList-footer
-{
+
+.toDoList-footer{
     height: 50px;
     display: flex;
     align-items: center;
     background-color: #fff;
 }
-.toDoList-footer_input
-{
+
+.toDoList-footer_input{
     height: 100%;
     width: 75%;
     margin-right: 10px;
@@ -226,13 +227,13 @@ p{
     padding: 0px 20px;
     color: #4caf50;
 }
-.toDoList-footer_input::placeholder
-{
+
+.toDoList-footer_input::placeholder{
     color: #4caf50;
     font-size: 24px;
 }
-#toDoList-footer_button
-{
+
+#toDoList-footer_button{
     background-image: url(./images/icons8-plus-48.png);
     height: 48px;
     width: 48px;
