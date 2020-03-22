@@ -1,0 +1,241 @@
+@import "/style/fonts";
+
+body{
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color:rgb(194, 215, 243);
+    font-family: 'Baloo Chettan 2', cursive;
+}
+
+p{
+    margin: 0;
+}
+
+.main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.toDoList-wrapper{
+    min-height: 600px;
+    width: 450px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.toDoList-header{
+    width: 100%;
+    height: 200px;
+    background-image: url('./images/skaly_gory_nebo_oblaka_115900_1280x720.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    display: flex;
+    padding: 15px;
+    color: #fff;
+}
+
+.toDoList-header_date{
+    font-size: 24px;
+    align-self: flex-end;
+}
+
+.toDoList-main{
+    background-color: #fff;
+    min-height: 340px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    margin-bottom: 2px;
+    padding: 10px 20px;
+}
+
+.toDoList-main_list{
+    list-style: none;
+    padding: 0;
+}
+
+.main_list-item{
+    display: flex;
+    align-items: center;
+    min-height: 50px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+    padding-right: 10px;
+    padding-left: 10px;
+    margin-bottom: 5px;
+    position: relative;
+}
+
+.main_list-item:last-child{
+    margin-bottom: 0;
+}
+
+.task-checkbox{
+    position: relative;
+}
+
+.task-checkbox:checked+ .fake-checkbox .checkmark{
+    display: block;
+}
+
+.fake-checkbox{
+    position: absolute;
+    background-image: url(./images/icons8-unchecked-48.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    top: 50%;
+    margin-top: -12px;
+    left: 9px;
+    cursor: pointer;
+}
+
+.checkmark{
+    background-image: url(./images/icons8-checkmark-48.png);
+    background-position:3px -3px ;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 24px;
+    width: 24px;
+    display: none;
+}
+
+.task-button{
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    height: 24px;
+    width: 24px;
+    cursor: pointer;
+    display: none;
+    
+}
+
+.task{
+    margin: 0 10px;
+    max-width: 300px;
+    overflow-wrap: break-word;
+}
+
+.delete{
+    background-image: url(./images/17231998941537348227-64.png);
+    position: absolute;
+}
+
+.edit{
+    background-image: url(./images/icons8-edit-64.png);
+}
+
+.task-buttons{
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    background-image: url(./images/icons8-settings-64.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    height: 24px;
+    width: 24px;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.task-buttons_check{
+    background-image: unset;
+    width: 60px;
+    background-color: #4caf50;;
+    border-radius: 5px;
+    padding: 5px;
+    transition-duration: 0.2s;
+}
+
+.hide{
+    background-image: url(./images/icons8-delete-64.png);
+    height: 12px;
+    width: 12px;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    right: -5px;
+    top:-5px;
+    display: none;
+    
+}
+
+.edit-input-wrapper{
+    width: 100%;
+    height: 50px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    background-color: #fff;
+    height: 100%;
+}
+
+.edit-input{
+    width: 82%;
+    height: 36px;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    font-family: 'Baloo Chettan 2', cursive;
+    letter-spacing: 0.4px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.edit-input::placeholder{
+    color: #4caf50;
+    font-size: 24px;
+}
+
+.confirm{
+    background-image: url(./images/accept.png);
+    height: 24px;
+    width: 24px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.toDoList-footer{
+    height: 50px;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+}
+
+.toDoList-footer_input{
+    height: 100%;
+    width: 75%;
+    margin-right: 10px;
+    border: none;
+    outline: none;
+    height: 45px;
+    font-size: 24px;
+    padding: 0px 20px;
+    color: #4caf50;
+}
+
+.toDoList-footer_input::placeholder{
+    color: #4caf50;
+    font-size: 24px;
+}
+
+#toDoList-footer_button{
+    background-image: url(./images/icons8-plus-48.png);
+    height: 48px;
+    width: 48px;
+    cursor: pointer;
+}
