@@ -44,20 +44,21 @@ function setCheckBox(index,condition)
     }
 }
 
-function addToLS()
+function addToLS(text)
 {
     let tempArr = [];
-
+    
     for(let i=0;i<tasks.length;i++)
     {
         let tempObj = {};
         tempObj.name = 'task' + i;
         tempObj.text = tasks[i].innerHTML;
+        tempObj.deleted = false ;
         taskCheckBoxes[i].checked == true ? tempObj.done = true : tempObj.done = false;
-        
+            
         tempArr[i] = tempObj;
     }
-    
+
     localStorage.setItem('toDoList',JSON.stringify(tempArr));
 }
 
@@ -69,7 +70,7 @@ function deleteTask(index)
     {
         if(i == index)
         {
-            tempArr.splice(i,1);
+            tempArr[i].deleted = true;
             localStorage.setItem('toDoList',JSON.stringify(tempArr));
         }
     }
@@ -91,13 +92,27 @@ function editTask(index , newTask)
 
 function loadToDoList()
 {
-    let tempArr = JSON.parse(localStorage.getItem('toDoList'));
-
-    for(let i=0;i<tempArr.length;i++)
+    if(localStorage.getItem('toDoList') != null)
     {
-        addToDo(tempArr[i].text);
-        tempArr[i].done == true ? taskCheckBoxes[i].checked = true : taskCheckBoxes[i].checked = false;
+        let tempArr = JSON.parse(localStorage.getItem('toDoList'));
+
+        filterOut : for(let i=0;i<tempArr.length;i++)
+        {
+
+            if(tempArr[i].deleted == true)
+            {
+                continue filterOut;
+            }
+            addToDo(tempArr[i].text);
+            taskCheckBoxes = document.querySelectorAll('.task-checkbox');
+        }
+
+        for(let i=0;i<taskCheckBoxes.length;i++)
+        {
+            tempArr[i].done == true ? taskCheckBoxes[i].checked = true : taskCheckBoxes[i].checked = false;
+        }
     }
+    
 
 }
 
