@@ -8,14 +8,13 @@ let
     tasks = document.querySelectorAll('.task'),
     inputEditWrapper = document.querySelectorAll('.edit-input-wrapper'),
     buttonConfirm = document.querySelectorAll('.confirm'),
-    taskCheckBoxes = document.querySelectorAll('.task-checkbox'),
-    toDoListObj = {},
-    toDoListSaved = {};
+    taskCheckBoxes = document.querySelectorAll('.task-checkbox');
 
 const date = document.querySelector('.toDoList-header_date'),
       input = document.querySelector('.toDoList-footer_input'),
       buttonAdd = document.querySelector('#toDoList-footer_button'),
       toDoList = document.querySelector('.toDoList-main_list');
+
 
 function redefine()
 {
@@ -29,59 +28,79 @@ function redefine()
         inputEditWrapper = document.querySelectorAll('.edit-input-wrapper'),
         buttonConfirm = document.querySelectorAll('.confirm'),
         taskCheckBoxes = document.querySelectorAll('.task-checkbox');
-        toDoListObj.html = parseToDoListHtmltoString();
-        toDoListObj.checkBox = getArrCheckbox(taskCheckBoxes);
 }
 
-
-function setCheckBox()
+function setCheckBox(index,condition)
 {
+    const tempArr = JSON.parse(localStorage.getItem('toDoList'));
 
-    const savedObj = localStorage.getItem('myToDo') ? JSON.parse(localStorage.getItem('myToDo')) : {};
-    const tempObj = savedObj.checkBox ? JSON.parse(savedObj.checkBox) : {};
-    const newArr = Object.values(tempObj)
-
-    for(let i=0;i<newArr.length;i++)
+    for(let i=0;i<tempArr.length;i++)
     {
-        if(newArr[i]=='true')
+        if(i == index)
         {
-            taskCheckBoxes[i].removeAttribute(`unchecked`);
-            taskCheckBoxes[i].setAttribute(`checked`,'');
-        }
-        else if(newArr[i]=='false')
-        {
-            taskCheckBoxes[i].removeAttribute(`checked`);
-            taskCheckBoxes[i].setAttribute(`unchecked`,'');
+            tempArr[i].done = condition;
+            localStorage.setItem('toDoList',JSON.stringify(tempArr));
         }
     }
 }
 
-
-function saveToDoList()
+function addToLS()
 {
-    return JSON.parse(localStorage.getItem('myToDo')).html;
-}
+    let tempArr = [];
 
-function setToLocaleStorage(obj)
-{
-    localStorage.setItem('myToDo',JSON.stringify(toDoListObj));
-}
-
-function parseToDoListHtmltoString()
-{
-    return toDoList.innerHTML.toString();
-}
-
-function getArrCheckbox(elem)
-{
-    let newObj = {};
-    let name = 'check';
-    for(let i=0;i<elem.length;i++)
+    for(let i=0;i<tasks.length;i++)
     {
-        newObj[name+i]=elem[i].checked?'true':'false';
+        let tempObj = {};
+        tempObj.name = 'task' + i;
+        tempObj.text = tasks[i].innerHTML;
+        taskCheckBoxes[i].checked == true ? tempObj.done = true : tempObj.done = false;
+        
+        tempArr[i] = tempObj;
     }
-    return JSON.stringify(newObj);
+    
+    localStorage.setItem('toDoList',JSON.stringify(tempArr));
 }
+
+function deleteTask(index)
+{
+    const tempArr = JSON.parse(localStorage.getItem('toDoList'));
+
+    for(let i=0;i<tempArr.length;i++)
+    {
+        if(i == index)
+        {
+            tempArr.splice(i,1);
+            localStorage.setItem('toDoList',JSON.stringify(tempArr));
+        }
+    }
+}
+
+function editTask(index , newTask)
+{
+    const tempArr = JSON.parse(localStorage.getItem('toDoList'));
+
+    for(let i=0;i<tempArr.length;i++)
+    {
+        if(i == index)
+        {
+            tempArr[i].text = newTask;
+            localStorage.setItem('toDoList',JSON.stringify(tempArr));
+        }
+    }
+}
+
+function loadToDoList()
+{
+    let tempArr = JSON.parse(localStorage.getItem('toDoList'));
+
+    for(let i=0;i<tempArr.length;i++)
+    {
+        addToDo(tempArr[i].text);
+        tempArr[i].done == true ? taskCheckBoxes[i].checked = true : taskCheckBoxes[i].checked = false;
+    }
+
+}
+
 
 function setEditValue()
 {
@@ -100,19 +119,12 @@ function setDate()
         month: 'long',
         day:'numeric',
         weekday: 'long'
-        
     }
 
-    date.innerHTML = currentDate.toLocaleString('En',options);;
+    date.innerHTML = currentDate.toLocaleString('En',options);
 }
 setDate();
 
-function loadToDo(html)
-{
-    toDoList.innerHTML = '';
-    toDoList.insertAdjacentHTML('beforeend',html);
-    redefine();
-}
 
 function addToDo(text)
 {
@@ -139,7 +151,7 @@ function addToDo(text)
                     </li>`;
 
     toDoList.insertAdjacentHTML('beforeend',htmlElem);
-    
+    redefine();
 }
 
 buttonAdd.addEventListener('click',()=>{
@@ -148,7 +160,7 @@ buttonAdd.addEventListener('click',()=>{
         addToDo(input.value);
         input.value = '';
         redefine();
-        setToLocaleStorage(toDoListObj);
+        addToLS();
    }
 });
 
@@ -179,9 +191,8 @@ toDoList.addEventListener('click',function(e){
         else if(e.target==buttonDelete[i])
         {
             listItem[i].remove();
-            toDoListObj.html=parseToDoListHtmltoString();
-            taskCheckBoxes = document.querySelectorAll('.task-checkbox');
-            getArrCheckbox(taskCheckBoxes);
+            deleteTask(i);
+            redefine();
         }
         else if(e.target==buttonEdit[i])
         {
@@ -193,20 +204,18 @@ toDoList.addEventListener('click',function(e){
             if(inputEdit[i].value)
             {
                 tasks[i].innerHTML = inputEdit[i].value;
+                editTask(i,inputEdit[i].value);
                 inputEditWrapper[i].style.display = 'none';
-                toDoListObj.html = parseToDoListHtmltoString();
             }
-            
         }
-
-        toDoListObj.checkBox = getArrCheckbox(taskCheckBoxes);
-        toDoListObj.html = parseToDoListHtmltoString();
+        else if (e.target==taskCheckBoxes[i])
+        {
+            setCheckBox(i,taskCheckBoxes[i].checked);
+        }
+        
     }
-    setToLocaleStorage(toDoListObj);
+
 });
 
-loadToDo(saveToDoList());
-setCheckBox();
 
-
-
+loadToDoList();
